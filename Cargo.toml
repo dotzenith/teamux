@@ -1,0 +1,18 @@
+[package]
+name = "teamux"
+version = "0.1.0"
+edition = "2024"
+description = "Create and Join tmux sessions with ease"
+homepage = "https://github.com/dotzenith/teamux"
+repository = "https://github.com/dotzenith/teamux"
+license = "MIT"
+autobins = false
+
+[[bin]]
+name = "mux"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1.0.100"
+clap = { version = "4.5.53", features = ["cargo", "derive"] }
+serde = { version = "1.0.228", features = ["derive"] }
