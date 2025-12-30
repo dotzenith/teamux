@@ -10,6 +10,10 @@ impl TmuxManager {
             return Err(anyhow!("Unable to call tmux, please ensure it is correctly installed"));
         };
 
+        if let Err(_) = Command::new("fzf").arg("--version").output() {
+            return Err(anyhow!("Unable to call fzf, please ensure it is correctly installed"));
+        };
+
         Ok(TmuxManager)
     }
 
@@ -21,7 +25,11 @@ impl TmuxManager {
                 }
                 String::from_utf8(out.stdout)?
             }
-            Err(_) => return Err(anyhow!("Unable to call tmux, please ensure it is correctly installed")),
+            Err(err) => {
+                return Err(anyhow!(
+                    "Unable to call tmux, please ensure it is correctly installed: {err}"
+                ));
+            }
         };
 
         sessions
@@ -33,5 +41,14 @@ impl TmuxManager {
                     .and_then(|sesh| Ok(sesh.to_string()))
             })
             .collect()
+    }
+
+    pub fn has_session(&self, session: &str) -> Result<bool> {
+        match Command::new("tmux").arg("has-session").arg("-t").arg(session).status() {
+            Ok(out) => Ok(out.success()),
+            Err(err) => Err(anyhow!(
+                "Unable to call tmux, please ensure it is correctly installed: {err}"
+            )),
+        }
     }
 }
