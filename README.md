@@ -65,7 +65,7 @@ Create and Join tmux sessions with ease
 Usage: mux [NAME]
 
 Arguments:
-  [NAME]  Name of the session mux will attach to or create
+  [NAME]  Name of the session teamux will attach to or create
 
 Options:
   -h, --help     Print help

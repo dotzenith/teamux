@@ -12,7 +12,7 @@ use clap::Parser;
 #[command(about, version, author)]
 
 struct Cli {
-    /// Name of the session mux will attach to or create
+    /// Name of the session teamux will attach to or create
     name: Option<String>,
 }
 
