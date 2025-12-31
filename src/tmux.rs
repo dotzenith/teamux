@@ -1,7 +1,6 @@
 use anyhow::{Result, anyhow};
-use std::process::Command;
+use std::process::{Command, Stdio};
 
-#[derive(Debug)]
 pub struct TmuxManager;
 
 impl TmuxManager {
@@ -21,7 +20,10 @@ impl TmuxManager {
         let sessions = match Command::new("tmux").arg("list-sessions").output() {
             Ok(out) => {
                 if !out.status.success() {
-                    return Err(anyhow!("Unable to get sessions"));
+                    // Returning an empty vec because
+                    // no sessions existing isn't an error
+                    // condition for us
+                    return Ok(vec![]);
                 }
                 String::from_utf8(out.stdout)?
             }
@@ -44,7 +46,14 @@ impl TmuxManager {
     }
 
     pub fn has_session(&self, session: &str) -> Result<bool> {
-        match Command::new("tmux").arg("has-session").arg("-t").arg(session).status() {
+        match Command::new("tmux")
+            .arg("has-session")
+            .arg("-t")
+            .arg(session)
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .status()
+        {
             Ok(out) => Ok(out.success()),
             Err(err) => Err(anyhow!(
                 "Unable to call tmux, please ensure it is correctly installed: {err}"
