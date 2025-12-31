@@ -1,6 +1,6 @@
 [package]
 name = "teamux"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2024"
 description = "Create and Join tmux sessions with ease"
 homepage = "https://github.com/dotzenith/teamux"
@@ -16,3 +16,8 @@ path = "src/main.rs"
 anyhow = "1.0.100"
 clap = { version = "4.5.53", features = ["cargo", "derive"] }
 serde = { version = "1.0.228", features = ["derive"] }
+
+# The profile that 'dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
