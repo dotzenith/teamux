@@ -1,7 +1,7 @@
 mod tmux;
 
 use anyhow::Result;
-use std::io::{self, Write};
+use std::io::Write;
 use std::os::unix::process::CommandExt;
 use std::process::{Command, Stdio};
 
@@ -34,17 +34,6 @@ fn main() -> Result<()> {
     }
 
     let sessions = manager.ls()?;
-
-    if sessions.is_empty() {
-        print!("New Session: ");
-        io::stdout().flush().expect("Failed to flush stdout");
-
-        let mut input = String::new();
-        io::stdin().read_line(&mut input).expect("Failed to read line");
-
-        let err = Command::new("tmux").arg("new").arg("-s").arg(input.trim()).exec();
-        return Err(err.into());
-    }
 
     let mut fzf = Command::new("fzf")
         .arg("--height")
