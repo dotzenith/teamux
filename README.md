@@ -1,18 +1,5 @@
 <h1 align="center"> ━━━━  ❖  ━━━━ </h1>
 
-<!-- BADGES -->
-<div align="center">
-   <p></p>
-
-   <img src="https://img.shields.io/github/stars/dotzenith/teamux?color=F8BD96&labelColor=302D41&style=for-the-badge">
-   <img src="https://img.shields.io/github/commit-activity/y/dotzenith/teamux?color=96CDFB&labelColor=302D41&style=for-the-badge&label=COMMITS"/>
-   <br>
-</div>
-
-<p/>
-
----
-
 ## ❖ teamux
 
 `teamux` makes joining and creating tmux sessions as easy as sipping tea.
